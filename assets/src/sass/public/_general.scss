@@ -1,0 +1,18 @@
+.generous-pagination {
+  clear: both;
+  ul.page-numbers {
+    width: 100%;
+    clear: both;
+    float: left;
+    li {
+      float: left;
+      a {
+        margin: 0 2px;
+        .next,
+        .prev {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

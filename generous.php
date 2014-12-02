@@ -3,7 +3,7 @@
  * Plugin Name:       Generous
  * Plugin URI:        https://github.com/generous/generous-wordpress
  * Description:       The official Generous plugin that allows you to easily generate a store.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Generous
  * Author URI:        https://genero.us
  * License:           GPL-2.0+

@@ -3,7 +3,7 @@ Contributors: genero.us, matthewgovaere
 Tags: generous, pay what you want, slider, ecommerce, e-commerce, store, shop, sell
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,9 @@ Filters allow you to output requested data within your templates.
 - `[title]` - Title
 
 == Changelog ==
+
+= 0.1.2 =
+* Fixed a minor bug on the_posts hook.
 
 = 0.1.1 =
 * Added https support to generous.js script.

@@ -205,7 +205,9 @@ class WP_Generous_Public {
 		wp_register_script( $this->name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/wp-generous.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( $this->name );
 
-		wp_register_script( "{$this->name}-js", 'http://js.genero.us/', array(), $this->version, false );
+		$protocol = is_ssl() ? 'https' : 'http';
+
+		wp_register_script( "{$this->name}-js", "$protocol://js.genero.us/", array(), $this->version, false );
 		wp_enqueue_script( "{$this->name}-js" );
 
 	}
@@ -344,49 +346,53 @@ class WP_Generous_Public {
 	 */
 	public function add_custom_page( $posts ) {
 
-		// Check unknown query
-		if ( $id = get_query_var( 'generous_page' ) ) {
+		if( count( $posts ) === 0 ) {
 
-			$query_var = 'generous_page';
-			$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : false;
+			// Check unknown query
+			if ( $id = get_query_var( 'generous_page' ) ) {
 
-			$data = $this->get_data( $query_var, $id, $paged);
+				$query_var = 'generous_page';
+				$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : false;
 
-			return $this->query->run( $query_var, $id, $data );
+				$data = $this->get_data( $query_var, $id, $paged);
 
-		// Check category query
-		} else if ( $id = get_query_var( 'generous_category' ) ) {
+				return $this->query->run( $query_var, $id, $data );
 
-			$query_var = 'generous_category';
-			$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : false;
+			// Check category query
+			} else if ( $id = get_query_var( 'generous_category' ) ) {
 
-			$data = $this->get_data( $query_var, $id, $paged);
+				$query_var = 'generous_category';
+				$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : false;
 
-			return $this->query->run( $query_var, $id, $data );
+				$data = $this->get_data( $query_var, $id, $paged);
 
-		// Check slider query
-		} else if ( $id = get_query_var( 'generous_slider' ) ) {
+				return $this->query->run( $query_var, $id, $data );
 
-			$query_var = 'generous_slider';
+			// Check slider query
+			} else if ( $id = get_query_var( 'generous_slider' ) ) {
 
-			$data = $this->get_data( $query_var, $id);
+				$query_var = 'generous_slider';
 
-			return $this->query->run( $query_var, $id, $data );
+				$data = $this->get_data( $query_var, $id);
 
-		// Check default page
-		} else if ( $this->is_default() ) {
+				return $this->query->run( $query_var, $id, $data );
 
-			$id = 'featured';
-			$query_var = 'generous_category';
-			$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : false;
+			// Check default page
+			} else if ( $this->is_default() ) {
 
-			$data = $this->get_data( $query_var, $id, $paged);
+				$id = 'featured';
+				$query_var = 'generous_category';
+				$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : false;
 
-			return $this->query->run( $query_var, $id, $data );
+				$data = $this->get_data( $query_var, $id, $paged);
 
-		} else {
+				return $this->query->run( $query_var, $id, $data );
 
-			// Not a Generous query
+			} else {
+
+				// Not a Generous query
+
+			}
 
 		}
 

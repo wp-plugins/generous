@@ -127,7 +127,7 @@ class WP_Generous_Admin_Settings {
 	}
 
 	/**
-	 * Output the input for permalink.
+	 * Output the input for enabling overlay.
 	 *
 	 * @since    0.1.0
 	 */
@@ -145,7 +145,7 @@ class WP_Generous_Admin_Settings {
 	}
 
 	/**
-	 * Output the input for permalink.
+	 * Output the input for enabling load more.
 	 *
 	 * @since    0.1.0
 	 */
@@ -163,7 +163,7 @@ class WP_Generous_Admin_Settings {
 	}
 
 	/**
-	 * Output the input for permalink.
+	 * Output the input for sliders per page.
 	 *
 	 * @since    0.1.0
 	 */
@@ -171,6 +171,114 @@ class WP_Generous_Admin_Settings {
 
 		echo "<input name=\"{$this->option_group}[sliders_per_page]\" size=\"20\" type=\"text\" value=\"{$this->options['sliders_per_page']}\" /> ";
 		echo "<span class=\"description\">Max. 50</span>";
+
+	}
+
+	/**
+	 * Output the input for enabling cart.
+	 *
+	 * @since    0.1.3
+	 */
+	public function output_input_enable_cart() {
+
+		if( true === $this->options['enable_cart'] ) {
+			$value = 'checked ';
+		} else {
+			$value = '';
+		}
+
+		echo "<input name=\"{$this->option_group}[enable_cart]\" type=\"checkbox\" value=\"true\" {$value}/> ";
+		echo "<span class=\"description\">Allow users to add sliders to a cart and checkout multiple purchases.</span>";
+
+	}
+
+	/**
+	 * Output the input for automatically opening cart.
+	 *
+	 * @since    0.1.3
+	 */
+	public function output_input_cart_auto_open() {
+
+		if( true === $this->options['cart_auto_open'] ) {
+			$value = 'checked ';
+		} else {
+			$value = '';
+		}
+
+		echo "<input name=\"{$this->option_group}[cart_auto_open]\" type=\"checkbox\" value=\"true\" {$value}/> ";
+		echo "<span class=\"description\">Automatically open the cart when a slider is added.</span>";
+
+	}
+
+	/**
+	 * Output the input for cart primary color.
+	 *
+	 * @since    0.1.3
+	 */
+	public function output_input_cart_color_primary() {
+
+		$value = '';
+
+		if( isset( $this->options['cart_color_primary'] ) ) {
+			$value = $this->options['cart_color_primary'];
+		}
+
+		echo "<input name=\"{$this->option_group}[cart_color_primary]\" size=\"20\" type=\"text\" value=\"{$value}\" /> ";
+		echo "<span class=\"description\">Color hex code used for background elements.</span>";
+
+	}
+
+	/**
+	 * Output the input for cart secondary color.
+	 *
+	 * @since    0.1.3
+	 */
+	public function output_input_cart_color_secondary() {
+
+		$value = '';
+
+		if( isset( $this->options['cart_color_secondary'] ) ) {
+			$value = $this->options['cart_color_secondary'];
+		}
+
+		echo "<input name=\"{$this->option_group}[cart_color_secondary]\" size=\"20\" type=\"text\" value=\"{$value}\" /> ";
+		echo "<span class=\"description\">Color hex code used for foreground and text elements.</span>";
+
+	}
+
+	/**
+	 * Output the input for cart accent color.
+	 *
+	 * @since    0.1.3
+	 */
+	public function output_input_cart_color_accent() {
+
+		$value = '';
+
+		if( isset( $this->options['cart_color_accent'] ) ) {
+			$value = $this->options['cart_color_accent'];
+		}
+
+		echo "<input name=\"{$this->option_group}[cart_color_accent]\" size=\"20\" type=\"text\" value=\"{$value}\" /> ";
+		echo "<span class=\"description\">Color hex code used for highlighting elements.</span>";
+
+	}
+
+	/**
+	 * Output the input for cart secondary color.
+	 *
+	 * @since    0.1.3
+	 */
+	public function output_input_advanced_disable_overlay() {
+
+		if( true === $this->options['js_v1_disable_overlay'] ) {
+			$value = 'checked ';
+		} else {
+			$value = '';
+		}
+
+		echo "<input name=\"{$this->option_group}[js_v1_disable_overlay]\" type=\"checkbox\" value=\"true\" {$value}/> ";
+		echo "<span class=\"description\">Disables v1 slider overlay.</span>";
 
 	}
 
@@ -223,6 +331,36 @@ class WP_Generous_Admin_Settings {
 			$results['enable_load_more'] = true;
 		} else {
 			$results['enable_load_more'] = false;
+		}
+
+		if ( isset( $input['enable_cart'] ) ) {
+			$results['enable_cart'] = true;
+		} else {
+			$results['enable_cart'] = false;
+		}
+
+		if ( isset( $input['cart_auto_open'] ) ) {
+			$results['cart_auto_open'] = true;
+		} else {
+			$results['cart_auto_open'] = false;
+		}
+
+		if ( isset( $input['cart_color_primary'] ) ) {
+			$results['cart_color_primary'] = str_replace(array('#', ' '), '', $input['cart_color_primary']);
+		}
+
+		if ( isset( $input['cart_color_secondary'] ) ) {
+			$results['cart_color_secondary'] = str_replace(array('#', ' '), '', $input['cart_color_secondary']);
+		}
+
+		if ( isset( $input['cart_color_accent'] ) ) {
+			$results['cart_color_accent'] = str_replace(array('#', ' '), '', $input['cart_color_accent']);
+		}
+
+		if ( isset( $input['js_v1_disable_overlay'] ) ) {
+			$results['js_v1_disable_overlay'] = true;
+		} else {
+			$results['js_v1_disable_overlay'] = false;
 		}
 
 		return $results;

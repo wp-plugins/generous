@@ -151,14 +151,28 @@ class WP_Generous_Admin {
 		// Sections
 		add_settings_section(
 			'section_general',
-			'General Settings',
+			'General',
 			'',
 			$this->settings->option_group
 		);
 
 		add_settings_section(
 			'section_sliders',
-			'Slider Settings',
+			'Slider',
+			'',
+			$this->settings->option_group
+		);
+
+		add_settings_section(
+			'section_cart',
+			'Cart',
+			'',
+			$this->settings->option_group
+		);
+
+		add_settings_section(
+			'section_advanced',
+			'Advanced',
 			'',
 			$this->settings->option_group
 		);
@@ -181,13 +195,6 @@ class WP_Generous_Admin {
 		);
 
 		// Slider Settings
-		add_settings_section(
-			'section_sliders',
-			'Slider Settings',
-			'',
-			$this->settings->option_group
-		);
-
 		add_settings_field(
 			'enable_overlay',
 			'Enable Overlay',
@@ -210,6 +217,56 @@ class WP_Generous_Admin {
 			array( $this->settings, 'output_input_sliders_per_page' ),
 			$this->settings->option_group,
 			'section_sliders'
+		);
+
+		// Cart Settings
+		add_settings_field(
+			'enable_cart',
+			'Enable Cart',
+			array( $this->settings, 'output_input_enable_cart' ),
+			$this->settings->option_group,
+			'section_cart'
+		);
+
+		add_settings_field(
+			'cart_auto_open',
+			'Enable Auto Open',
+			array( $this->settings, 'output_input_cart_auto_open' ),
+			$this->settings->option_group,
+			'section_cart'
+		);
+
+		add_settings_field(
+			'cart_color_primary',
+			'Primary Color',
+			array( $this->settings, 'output_input_cart_color_primary' ),
+			$this->settings->option_group,
+			'section_cart'
+		);
+
+		add_settings_field(
+			'cart_color_secondary',
+			'Secondary Color',
+			array( $this->settings, 'output_input_cart_color_secondary' ),
+			$this->settings->option_group,
+			'section_cart'
+		);
+
+		add_settings_field(
+			'cart_color_accent',
+			'Accent Color',
+			array( $this->settings, 'output_input_cart_color_accent' ),
+			$this->settings->option_group,
+			'section_cart'
+		);
+
+		// Advanced Settings
+		add_settings_field(
+			'js_v1_disable_overlay',
+			'Force v0 Slider Overlay',
+			array( $this->settings, 'output_input_advanced_disable_overlay' ),
+			$this->settings->option_group,
+			'section_advanced'
 		);
 
 	}

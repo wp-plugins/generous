@@ -192,7 +192,7 @@ class WP_Generous_Public {
 	 * @since    0.1.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/wp-generous.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/wp-generous.css', array(), NULL, 'all' );
 	}
 
 	/**
@@ -202,12 +202,51 @@ class WP_Generous_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_register_script( $this->name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/wp-generous.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( $this->name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/wp-generous.js', array( 'jquery' ), NULL, false );
 		wp_enqueue_script( $this->name );
 
 		$protocol = is_ssl() ? 'https' : 'http';
+		
+		$url = "$protocol://js.genero.us/";
+		$url_params = "";
 
-		wp_register_script( "{$this->name}-js", "$protocol://js.genero.us/", array(), $this->version, false );
+		if ( $this->options['enable_cart'] ) {
+
+			$url_params .= "?enableCart=true";
+
+			if ( $this->options['cart_auto_open'] ) {
+				$url_params .= "&cartAutoOpen=true";
+			}
+
+			if ( $this->options['cart_color_primary'] ) {
+				$url_params .= "&cartColorPrimary={$this->options['cart_color_primary']}";
+			}
+
+			if ( $this->options['cart_color_secondary'] ) {
+				$url_params .= "&cartColorSecondary={$this->options['cart_color_secondary']}";
+			}
+
+			if ( $this->options['cart_color_accent'] ) {
+				$url_params .= "&cartColorAccent={$this->options['cart_color_accent']}";
+			}
+
+		}
+
+		if ( $this->options['js_v1_disable_overlay'] ) {
+
+			if ( substr( $url_params, 0, 1 ) !== "?" ) {
+				$url_params .= "?";
+			} else {
+				$url_params .= "&";
+			}
+
+			$url_params .= "enableOverlay=false";
+
+		}
+
+		$url .= $url_params;
+
+		wp_register_script( "{$this->name}-js", $url, array(), NULL, false );
 		wp_enqueue_script( "{$this->name}-js" );
 
 	}
